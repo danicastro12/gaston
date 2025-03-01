@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword } from "firebase/auth"
+import { AuthError, createUserWithEmailAndPassword } from "firebase/auth"
 import { auth } from "./firebase"
 
 interface SignUpInterface {
@@ -11,7 +11,8 @@ export const signUp = async ({ email, password }: SignUpInterface) => {
     const signup = await createUserWithEmailAndPassword(auth, email, password)
     console.log(signup)
   } catch (e) {
-    console.log(e.code)
-    console.log(e.message)
+    const error = e as AuthError
+    console.log(error.code)
+    console.log(error.message)
   }
 }

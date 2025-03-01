@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react"
 
 export const Sidebar = () => {
-  const [isHidden, setIsHidden] = useState(true);
+  const [isHidden, setIsHidden] = useState(true)
 
   const handleClick = () => {
-    setIsHidden(!isHidden);
-  };
+    setIsHidden(!isHidden)
+  }
 
   return (
     <>
@@ -17,8 +17,9 @@ export const Sidebar = () => {
       </div>
 
       <nav
-        className={`${isHidden ? "-mx-80" : ""
-          } flex flex-col h-screen max-h-full w-1/6 min-w-72 bg-mirage-800 gap-4 px-4 py-20 rounded-r-xl transition-all z-10 fixed`}
+        className={`${
+          isHidden ? "-mx-80" : ""
+        } flex flex-col h-screen max-h-full w-1/6 min-w-72 bg-mirage-800 gap-4 px-4 py-20 rounded-r-xl transition-all z-10 fixed`}
       >
         <div className="flex items-baseline p-6 hover:cursor-pointer hover:bg-mirage-600 rounded-md transition-all">
           <i className="fa-solid fa-house fa-lg pr-4"></i>
@@ -41,5 +42,5 @@ export const Sidebar = () => {
         </div>
       </nav>
     </>
-  );
-};
+  )
+}
