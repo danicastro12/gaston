@@ -54,7 +54,6 @@ export const AuthContextProvider = ({
     email,
     password,
   }: RegisterInterface): Promise<User> => {
-    console.log(auth)
     console.log(email)
     console.log(password)
     try {
@@ -63,7 +62,6 @@ export const AuthContextProvider = ({
         email,
         password
       )
-      console.log(user)
       setUser(user)
       return user
     } catch (e) {
@@ -81,7 +79,6 @@ export const AuthContextProvider = ({
   }: RegisterInterface): Promise<User> => {
     try {
       const { user } = await signInWithEmailAndPassword(auth, email, password)
-      console.log(user)
       setUser(user)
       return user
     } catch (e) {

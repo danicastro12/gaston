@@ -20,8 +20,8 @@ function App() {
     const accessToken = localStorage.getItem("token")
 
     if (!accessToken) {
-      nav("/register")
-      throw new Error("Login is required")
+      nav("/login")
+      return () => {}
     }
 
     onAuthStateChanged(auth, (user) => {
