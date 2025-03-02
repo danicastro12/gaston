@@ -48,6 +48,7 @@ export const AuthContextProvider = ({
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user)
+        console.log(user)
       }
     })
   }, [])

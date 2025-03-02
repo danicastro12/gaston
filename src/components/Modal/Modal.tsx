@@ -67,6 +67,7 @@ export const Modal = ({ handleClose }: { handleClose: () => void }) => {
             {...register("price")}
             className="p-1"
             placeholder="Precio"
+            type="number"
           ></input>
           <button className="p-2 rounded-md bg-emerald-600">Agregar</button>
         </form>

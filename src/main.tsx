@@ -6,6 +6,7 @@ import App from "./App.tsx"
 import { AuthContextProvider } from "./context/AuthContext.tsx"
 import { SignIn } from "./Views/SignIn.tsx"
 import { SignUp } from "./Views/SignUp.tsx"
+import { Vinculated } from "./Views/Vinculated.tsx"
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -16,6 +17,7 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/" element={<App />} />
           <Route path="dashboard" element={<App />} />
           <Route path="/login" element={<SignIn />} />
+          <Route path="/vinculated" element={<Vinculated />} />
         </Routes>
       </BrowserRouter>
     </AuthContextProvider>
