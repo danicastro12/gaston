@@ -20,7 +20,7 @@ function App() {
     const accessToken = localStorage.getItem("token")
 
     if (!accessToken) {
-      nav("/login")
+      nav("/register")
       return () => {}
     }
 

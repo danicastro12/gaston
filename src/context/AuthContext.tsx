@@ -1,12 +1,14 @@
 import {
   Auth,
   AuthError,
+  onAuthStateChanged,
   signInWithEmailAndPassword,
   User,
 } from "firebase/auth"
 import React, { createContext, useContext, useEffect, useState } from "react"
 import { createUserWithEmailAndPassword } from "firebase/auth"
-import { auth } from "../firebase/firebase"
+import { auth, firestore } from "../firebase/firebase"
+import { doc, setDoc } from "firebase/firestore"
 
 type AuthContextType = {
   user: User | undefined
@@ -43,9 +45,11 @@ export const AuthContextProvider = ({
   children: React.ReactNode
 }) => {
   useEffect(() => {
-    if (auth.currentUser) {
-      setUser(auth.currentUser)
-    }
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user)
+      }
+    })
   }, [])
   const [user, setUser] = useState<User>()
 
@@ -63,6 +67,12 @@ export const AuthContextProvider = ({
         password
       )
       setUser(user)
+      const userRef = doc(firestore, "users", user.uid)
+
+      await setDoc(userRef, {
+        spents: [],
+      })
+
       return user
     } catch (e) {
       const error = e as AuthError

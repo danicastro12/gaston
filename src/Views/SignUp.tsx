@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { getIdTokenResult } from "firebase/auth"
-import { useNavigate } from "react-router"
+import { Link, useNavigate } from "react-router"
 import { auth } from "../firebase/firebase"
 import { useAuthContext } from "../context/AuthContext"
 export const SignUp = () => {
@@ -44,7 +44,7 @@ export const SignUp = () => {
           {...register("email")}
           type="email"
           className="w-5/6 h-8 rounded-sm p-2"
-          placeholder="Nombre"
+          placeholder="Email"
         ></input>
         <input
           {...register("password")}
@@ -55,6 +55,10 @@ export const SignUp = () => {
         <button className="bg-gray-900 p-4 rounded-md text-white">
           Registrarse
         </button>
+
+        <Link className="text-white" to="/login">
+          Iniciar Sesion
+        </Link>
       </form>
     </div>
   )

@@ -1,7 +1,8 @@
 import { useForm } from "react-hook-form"
-import { collection, addDoc, Timestamp } from "firebase/firestore"
+import { Timestamp, updateDoc, arrayUnion, doc } from "firebase/firestore"
 import { firestore } from "../../firebase/firebase"
 import { FirestoreInterface } from "../../hooks/useFetchSpents"
+import { useAuthContext } from "../../context/AuthContext"
 
 interface FormData {
   name: string
@@ -11,10 +12,16 @@ interface FormData {
 
 export const Modal = ({ handleClose }: { handleClose: () => void }) => {
   const { register, handleSubmit } = useForm<FormData>()
+  const { user } = useAuthContext()
 
   const addSpent = async (spentObject: FirestoreInterface) => {
-    const docRef = await addDoc(collection(firestore, "gastos"), spentObject)
-    console.log(docRef.id)
+    if (!user) {
+      return
+    }
+    const userRef = doc(firestore, "users", user.uid)
+    await updateDoc(userRef, {
+      spents: arrayUnion(spentObject),
+    })
   }
 
   const onSubmit = (data: FormData) => {

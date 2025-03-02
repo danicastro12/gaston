@@ -44,7 +44,7 @@ export const SignIn = () => {
           {...register("email")}
           type="email"
           className="w-5/6 h-8 rounded-sm p-2"
-          placeholder="Nombre"
+          placeholder="Email"
         ></input>
         <input
           {...register("password")}
