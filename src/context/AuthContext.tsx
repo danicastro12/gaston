@@ -12,6 +12,7 @@ import { doc, setDoc } from "firebase/firestore"
 
 type AuthContextType = {
   user: User | undefined
+  username: string | undefined
   setUser: React.Dispatch<React.SetStateAction<User | undefined>>
   registerAction: ({
     auth,
@@ -34,6 +35,7 @@ interface RegisterInterface {
 
 const authContext = createContext<AuthContextType>({
   user: undefined,
+  username: undefined,
   setUser: () => {},
   registerAction: () => {},
   loginAction: () => {},
@@ -48,19 +50,22 @@ export const AuthContextProvider = ({
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user)
-        console.log(user)
+        if (!user.email) {
+          return
+        }
+        const username = user.email?.split("@")
+        setUsername(username[0])
       }
     })
   }, [])
   const [user, setUser] = useState<User>()
+  const [username, setUsername] = useState<string>("")
 
   const registerAction = async ({
     auth,
     email,
     password,
   }: RegisterInterface): Promise<User> => {
-    console.log(email)
-    console.log(password)
     try {
       const { user } = await createUserWithEmailAndPassword(
         auth,
@@ -68,6 +73,7 @@ export const AuthContextProvider = ({
         password
       )
       setUser(user)
+
       const userRef = doc(firestore, "users", user.uid)
 
       await setDoc(userRef, {
@@ -102,7 +108,7 @@ export const AuthContextProvider = ({
 
   return (
     <authContext.Provider
-      value={{ user, setUser, registerAction, loginAction }}
+      value={{ user, setUser, registerAction, loginAction, username }}
     >
       {children}
     </authContext.Provider>

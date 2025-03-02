@@ -31,7 +31,6 @@ export const SignIn = () => {
       localStorage.setItem("token", token.token)
       nav("/dashboard")
     }
-    console.log(user)
   }
 
   return (

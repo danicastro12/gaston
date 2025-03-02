@@ -7,7 +7,6 @@ import { firestore } from "../firebase/firebase"
 export const useFetchVinculatedSpents = (uid: string) => {
   const [spents, setSpents] = useState<SpentInterface[]>([])
 
-  console.log(uid)
   useEffect(() => {
     if (!uid) {
       return () => {}
@@ -17,13 +16,9 @@ export const useFetchVinculatedSpents = (uid: string) => {
       const docSnapshot = await getDoc(userRef)
       const data = docSnapshot.data()
 
-      console.log(data)
-
       if (!data) {
         return () => {}
       }
-
-      console.log(data.spents)
 
       data.spents.forEach((doc: FirestoreInterface) => {
         const date = doc.date.toDate()
@@ -35,7 +30,6 @@ export const useFetchVinculatedSpents = (uid: string) => {
           date: date.getDate() + "/" + (date.getMonth() + 1),
         }
 
-        console.log(dataObject)
         setSpents((prevState): SpentInterface[] => [...prevState, dataObject])
       })
     }

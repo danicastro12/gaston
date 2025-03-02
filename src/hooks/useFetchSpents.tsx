@@ -14,7 +14,6 @@ export interface FirestoreInterface {
 export const useFetchSpents = () => {
   const [spents, setSpents] = useState<SpentInterface[]>([])
   const { user } = useAuthContext()
-  console.log(user)
   useEffect(() => {
     if (!user) {
       return () => {}
@@ -24,13 +23,9 @@ export const useFetchSpents = () => {
       const docSnapshot = await getDoc(userRef)
       const data = docSnapshot.data()
 
-      console.log(data)
-
       if (!data) {
         return () => {}
       }
-
-      console.log(data.spents)
 
       data.spents.forEach((doc: FirestoreInterface) => {
         const date = doc.date.toDate()
@@ -42,7 +37,6 @@ export const useFetchSpents = () => {
           date: date.getDate() + "/" + (date.getMonth() + 1),
         }
 
-        console.log(dataObject)
         setSpents((prevState): SpentInterface[] => [...prevState, dataObject])
       })
     }

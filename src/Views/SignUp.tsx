@@ -13,7 +13,7 @@ export const SignUp = () => {
   const { registerAction } = useAuthContext()
 
   useEffect(() => {
-    console.log(auth)
+    console.log("")
   }, [])
 
   const nav = useNavigate()
@@ -31,7 +31,6 @@ export const SignUp = () => {
       localStorage.setItem("token", token.token)
       nav("/dashboard")
     }
-    console.log(user)
   }
 
   return (

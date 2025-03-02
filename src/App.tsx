@@ -10,11 +10,13 @@ import { useFetchSpents } from "./hooks/useFetchSpents"
 import { AddSpent } from "./components/Spent/AddSpent"
 import { createPortal } from "react-dom"
 import { Modal } from "./components/Modal/Modal"
+import { useAuthContext } from "./context/AuthContext"
 
 function App() {
   const nav = useNavigate()
   const { spents } = useFetchSpents()
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const { username } = useAuthContext()
 
   useEffect(() => {
     const accessToken = localStorage.getItem("token")
@@ -46,7 +48,9 @@ function App() {
     <>
       <Sidebar />
       <div className="p-10">
-        <h3 className="text-3xl font-semibold text-center">Bienvenido 👋</h3>
+        <h3 className="text-3xl font-semibold text-center">
+          Bienvenido {username ? username : ""} 👋
+        </h3>
         <p className="text-center text-gray-300">
           Aca podras ver los movimientos recientes
         </p>

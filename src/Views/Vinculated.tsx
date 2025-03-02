@@ -51,7 +51,6 @@ export const Vinculated = () => {
     await updateDoc(authorizedRef, {
       authorized: user.uid,
     })
-    console.log(data.id)
   }
 
   return (
