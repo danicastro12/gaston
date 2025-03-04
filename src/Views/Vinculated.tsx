@@ -31,7 +31,6 @@ export const Vinculated = () => {
         setVinculatedId("")
         return
       }
-      console.log(docData)
       setVinculatedId(docData.authorized)
     }
 
