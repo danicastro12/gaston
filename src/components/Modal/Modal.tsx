@@ -25,7 +25,6 @@ export const Modal = ({ handleClose }: { handleClose: () => void }) => {
   }
 
   const onSubmit = (data: FormData) => {
-    console.log(data)
     const date = new Date()
     const timeStamp = Timestamp.fromDate(date)
     const spentObject = {
@@ -33,6 +32,7 @@ export const Modal = ({ handleClose }: { handleClose: () => void }) => {
       type: data.type,
       price: data.price,
       date: timeStamp,
+      new: false,
     }
     addSpent(spentObject)
     handleClose()

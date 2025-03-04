@@ -1,4 +1,3 @@
-import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { getIdTokenResult } from "firebase/auth"
 import { useNavigate } from "react-router"
@@ -11,10 +10,6 @@ export const SignIn = () => {
   }
 
   const { loginAction } = useAuthContext()
-
-  useEffect(() => {
-    console.log(auth)
-  }, [])
 
   const nav = useNavigate()
   const { register, handleSubmit } = useForm<Form>()
@@ -34,21 +29,22 @@ export const SignIn = () => {
   }
 
   return (
-    <div className="w-screen max-w-full h-screen max-h-screen flex justify-center items-center">
+    <div className="w-screen max-w-full h-screen max-h-screen flex flex-col justify-center items-center ">
+      <h2 className="font-bold text-2xl pb-6">Bienvenido de nuevo!</h2>
       <form
-        className="flex justify-center w-72  h-2/3 items-center flex-col p-12 gap-16 bg-gray-800 text-black"
+        className="flex justify-center w-72  h-2/3 items-center flex-col p-12 gap-16 bg-gray-800 text-black rounded-md"
         onSubmit={handleSubmit(onSubmit)}
       >
         <input
           {...register("email")}
           type="email"
-          className="w-5/6 h-8 rounded-sm p-2"
+          className="w-56 h-8 rounded-sm p-2"
           placeholder="Email"
         ></input>
         <input
           {...register("password")}
           type="password"
-          className="w-5/6 h-8 rounded-sm p-2"
+          className="w-56 h-8 rounded-sm p-2"
           placeholder="Contraseña"
         />
         <button className="bg-gray-900 p-4 rounded-md text-white">

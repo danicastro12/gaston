@@ -7,12 +7,16 @@ import { AuthContextProvider } from "./context/AuthContext.tsx"
 import { SignIn } from "./Views/SignIn.tsx"
 import { SignUp } from "./Views/SignUp.tsx"
 import { Vinculated } from "./Views/Vinculated.tsx"
+import { Spents } from "./Views/Spents.tsx"
+import { Incomes } from "./Views/Incomes.tsx"
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <AuthContextProvider>
       <BrowserRouter>
         <Routes>
+          <Route path="/income" element={<Incomes />} />
+          <Route path="/bills" element={<Spents />} />
           <Route path="/register" element={<SignUp />} />
           <Route path="/" element={<App />} />
           <Route path="dashboard" element={<App />} />

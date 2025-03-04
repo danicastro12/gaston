@@ -30,13 +30,17 @@ export const Sidebar = () => {
         </Link>
 
         <div className="flex items-baseline p-6 hover:cursor-pointer hover:bg-mirage-600 rounded-md transition-all">
-          <i className="fa-solid fa-receipt fa-lg pr-4"></i>
-          <span>Mis gastos</span>
+          <Link to={"/bills"}>
+            <i className="fa-solid fa-receipt fa-lg pr-4"></i>
+            <span>Mis gastos</span>
+          </Link>
         </div>
 
         <div className="flex items-baseline p-6  hover:cursor-pointer hover:bg-mirage-600 rounded-md transition-all">
-          <i className="fa-solid fa-wallet fa-lg pr-4"></i>
-          <span>Ingresos</span>
+          <Link to={"/income"}>
+            <i className="fa-solid fa-wallet fa-lg pr-4"></i>
+            <span>Ingresos</span>
+          </Link>
         </div>
 
         <div className="flex items-baseline justify-self-end p-6  hover:cursor-pointer hover:bg-mirage-600 rounded-md transition-all">

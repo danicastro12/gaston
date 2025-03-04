@@ -18,6 +18,7 @@ type AuthContextType = {
     auth,
     email,
     password,
+    money,
   }: RegisterInterface) => Promise<User> | void
 
   loginAction: ({
@@ -31,6 +32,7 @@ interface RegisterInterface {
   auth: Auth
   email: string
   password: string
+  money?: string
 }
 
 const authContext = createContext<AuthContextType>({
@@ -46,10 +48,14 @@ export const AuthContextProvider = ({
 }: {
   children: React.ReactNode
 }) => {
+  const [user, setUser] = useState<User>()
+  const [username, setUsername] = useState<string>("")
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user)
+
         if (!user.email) {
           return
         }
@@ -57,14 +63,13 @@ export const AuthContextProvider = ({
         setUsername(username[0])
       }
     })
-  }, [])
-  const [user, setUser] = useState<User>()
-  const [username, setUsername] = useState<string>("")
+  }, [user])
 
   const registerAction = async ({
     auth,
     email,
     password,
+    money = "0",
   }: RegisterInterface): Promise<User> => {
     try {
       const { user } = await createUserWithEmailAndPassword(
@@ -74,10 +79,13 @@ export const AuthContextProvider = ({
       )
       setUser(user)
 
+      const accountMoney = parseInt(money)
+
       const userRef = doc(firestore, "users", user.uid)
 
       await setDoc(userRef, {
         spents: [],
+        money: accountMoney,
       })
 
       return user

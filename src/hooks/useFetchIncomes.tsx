@@ -1,19 +1,20 @@
+import { doc, getDoc, Timestamp } from "firebase/firestore"
 import { useEffect, useState } from "react"
-import { doc, Timestamp, getDoc } from "firebase/firestore"
-import { firestore } from "../firebase/firebase"
-import { SpentInterface } from "../models/spents/spents.model"
 import { useAuthContext } from "../context/AuthContext"
+import { firestore } from "../firebase/firebase"
 
-export interface FirestoreInterface {
-  name: string
-  type: string
-  price: string
-  date: Timestamp
-  new: boolean
+export interface IncomesInterface {
+  date: string
+  amount: number
 }
 
-export const useFetchSpents = () => {
-  const [spents, setSpents] = useState<SpentInterface[]>([])
+export interface FirestoreIncomes {
+  date: Timestamp
+  amount: number
+}
+
+export const useFetchIncomes = () => {
+  const [incomes, setIncomes] = useState<IncomesInterface[]>([])
   const { user } = useAuthContext()
   useEffect(() => {
     if (!user) {
@@ -24,29 +25,30 @@ export const useFetchSpents = () => {
       const docSnapshot = await getDoc(userRef)
       const data = docSnapshot.data()
 
-      if (!data) {
+      if (!data || !data.incomes) {
         return () => {}
       }
 
-      data.spents.forEach((doc: FirestoreInterface) => {
+      data.incomes.forEach((doc: FirestoreIncomes) => {
         const date = doc.date.toDate()
 
         const dataObject = {
-          name: doc.name,
-          price: doc.price,
-          type: doc.type,
+          amount: doc.amount,
           date: date.getDate() + "/" + (date.getMonth() + 1),
         }
 
-        setSpents((prevState): SpentInterface[] => [...prevState, dataObject])
+        setIncomes((prevState): IncomesInterface[] => [
+          ...prevState,
+          dataObject,
+        ])
       })
     }
 
     getData()
     return () => {
-      setSpents([])
+      setIncomes([])
     }
   }, [user])
 
-  return { spents }
+  return { incomes }
 }
